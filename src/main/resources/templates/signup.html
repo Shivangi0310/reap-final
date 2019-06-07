@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Newer's Registeration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <!--<link rel="stylesheet" type="text/js" href="signup.js"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" type="text/css" href="../static/css/signup.css" th:href="@{/css/signup.css}">
+</head>
+<body>
+<script>$(document).ready(function () {
+    $('#submit').click(function () {
+        var image_name = $('#image').val();
+        if (image_name == '') {
+            alert("Please Select Image");
+            return false;
+        }
+        else {
+            var extension = $('#image').val().split('.').pop().toLowerCase();
+            if (jQuery.inArray(extension, ['png', 'jpg', 'jpeg']) == -1) {
+                alert('Invalid image type');
+                return false;
+            }
+        }
+
+    })
+    $("#fp input").removeAttr("style");
+    $("#fp label").removeAttr("style");
+});
+</script>
+<div>
+    <img src="http://reap.tothenew.com/assets/reap-ed280031215032f3350f114b95893a51.png"
+         class="login-reap-image1">
+    <br>
+    <img src="http://reap.tothenew.com/assets/text_footer-8f0e1eb9c8ec931dcc66dbcdc631fe64.png"
+         class="login-reap-image2">
+</div>
+<div id="container-fluid">
+    <div class="inner2">
+        <ul id="nav" class="nav nav-tabs">
+            <li><a href="login">Login</a></li>
+            <li class="active"><a href="register">Sign Up</a></li>
+        </ul>
+    </div>
+    <div id="reap_login">
+        <form method="post" th:action="@{/reap/register}" th:object="${employee}" enctype="multipart/form-data"
+              role="form">
+            <div class="wrapper">
+                    <span th:if="${isRegistered}==false">
+                        <div class="alert alert-warning" role="alert">
+                            Employee Registered Failed!!!.<br/>
+                            <span style="color: red" th:text="${exception.errorMessage}"></span>
+                        </div>
+                    </span>
+                <div class="form-element">
+                    <label>Firstname: <sup>*</sup></label>
+                    <input type="text" minlength="3" th:field="*{firstName}" name="firstName" required>
+                </div>
+
+                <div class="form-element">
+                    <label>Lastname: <sup>*</sup></label>
+                    <input minlength="3" type="text" th:field="*{lastName}" name="lastName" required>
+                </div>
+
+                <div class="form-element">
+                    <label style="float:left;">Photo: <sup>*</sup></label>
+                    <input id="image" type="file" style=" border: thin;" name="profilePic" required>
+                </div>
+
+                <div class="form-element">
+                    <label>Email: <sup>*</sup></label>
+                    <input type="email" th:field="*{email}" name="email" required>
+                </div>
+
+                <div class="form-element">
+                    <label>Contact Number: <sup>*</sup></label>
+                    <input type="text" th:field="*{contactNumber}" name="contactNumber" size="10"
+                           pattern="[7-9]{1}[0-9]{9}" required>
+                </div>
+
+                <div class="form-element">
+                    <label>Password: <sup>*</sup></label>
+                    <input id="pwd" minlength="4" type="password" th:field="*{password}" name="password" required>
+                </div>
+
+                <div class="form-element">
+                    <label>Confirm Password: <sup>*</sup></label>
+                    <input id="confirm-pwd" minlength="4" type="password" th:field="*{confirmPassword}"
+                           name="confirm-password" required>
+                </div>
+
+                <hr style="color:grey;">
+                <!--<a href="#" class="btn btn-link">Forgot Password</a>-->
+                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"
+                        style="margin-right: 10px; width: 150px; height: 30px; color: blue;  font-size: 15px;
+             background-color: white; border-color: white; border-radius: 0px">Forget Password?
+                </button>
+                <input id="submit" type="submit" class="btn btn-primary" style="float:right;" value="Register"></input>
+            </div>
+
+        </form>
+
+    </div>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Forgot Password</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Enter your Email address and we'll send you a link to reset your password!</p>
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                            <form class="form-horizontal" th:action="@{/reap/forgotpwd}" autocomplete="on"
+                                  method="post">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="email-pwd">Email:</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" class="form-control" id="email-pwd" name="email-pwd"
+                                               required>
+                                    </div>
+                                </div>
+
+
+                                <div class="modal-footer">
+                                    <div class="form-group">
+
+                                        <button type="submit" class="btn btn-primary">Send Password</button>
+
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        console.log("helloooooo")
+
+        $("#submit").click(function () {
+            var password = $("#pwd").val();
+            var confirmPassword = $("#confirm-pwd").val();
+            if (password != confirmPassword) {
+                alert("passwords does not match");
+                console.log("not matched");
+                return false;
+            }
+            console.log("not matched");
+
+            return true;
+
+        });
+
+    });
+</script>
+</body>
+</html>

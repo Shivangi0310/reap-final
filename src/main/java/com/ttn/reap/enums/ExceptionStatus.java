@@ -1,0 +1,12 @@
+package com.ttn.reap.enums;
+
+public enum ExceptionStatus {
+    EMPLOYEE_ALREADY_EXIST,
+    INVALID_EMAIL_ID,
+    INVALID_DETAILS,
+    DEFAULT_EXCEPTION,
+    NO_DATA_FOUND,
+    INVALID_IMAGE_FORMAT,
+    BADGE_INSUFFICIENT,
+    CAN_NOT_BE_SAME;
+}

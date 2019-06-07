@@ -1,0 +1,29 @@
+
+sup {
+    color: red;
+}
+
+.form-element {
+    padding-bottom: 15px;
+}
+
+#nav {
+    margin: 20px;
+}
+
+.login-reap-image1 {
+    width: 70%;
+    padding-left: 160px
+}
+
+.login-reap-image2 {
+
+    width: 90%;
+    padding-left: 120px
+}
+
+body{
+    width:600px;
+    height: 800px;
+    margin:0 auto;
+}

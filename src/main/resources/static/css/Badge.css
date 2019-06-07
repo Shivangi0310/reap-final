@@ -1,0 +1,145 @@
+*,body{
+    box-sizing: border-box;
+    border: none;
+    margin-left: 0;
+    padding: 0;
+}
+
+.container-fluid{
+    padding: 0;
+    margin: 0;
+}
+
+a
+{
+    color: black;
+    text-decoration: none;
+}
+a:hover
+{
+    color: black;
+    text-decoration: none;
+}
+.btn-default:hover
+{
+    background-color: #ff3ccb;
+    color: white;
+}
+
+.btn-default
+{
+    font-size: large;
+    border: transparent;
+}
+
+.btn-secondary
+{
+    background-color: #f4f4f4;
+    color: black;
+    border: 0px;
+}
+
+nav
+{
+    padding: 10px;
+    background-color: white;
+    position: fixed;
+    z-index: 3;
+}
+
+.notification
+{
+    padding: 1px;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    float: right;
+}
+
+.notification:hover
+{
+    padding: 1px;
+    background-color: #b6b6b6;
+}
+
+.container
+{
+    width: 100%;
+    height: 100%;
+}
+
+.panel-info >.panel-heading
+{
+    background-color: #0e5a80;
+    color: white;
+}
+
+.panel-info
+{
+    border-color: #0e5a80;
+}
+.dropbtn {
+    background-color: #fff;
+    color: black;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid black;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    float: right;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    width: 82%;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    box-sizing: inherit;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: white;}
+
+.btn
+{
+    padding: 10px;
+}
+
+.profileimg{
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+}
+
+#btn-nav-active{
+    background-color: #0e5a80;
+    color: #fff;
+}
+
+#btn-nav-active:hover{
+    background-color: transparent;
+    color: #000;
+}
+
+.btn-nav {
+    background-color: transparent;
+}
+.btn-nav:hover, .btn-nav:focus, .btn-nav:active, .btn-nav.active, .open>.dropdown-toggle.btn-nav {
+    background-color: #0e5a80;
+    color: #fff;
+}

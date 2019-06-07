@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <!--<link rel="stylesheet" type="text/js" href="signup.js"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css"/>
+
+</head>
+<body>
+<script>$(document).ready(function () {
+});
+</script>
+<div>
+    <img src="http://reap.tothenew.com/assets/reap-ed280031215032f3350f114b95893a51.png"
+         class="login-reap-image1">
+    <br>
+    <img src="http://reap.tothenew.com/assets/text_footer-8f0e1eb9c8ec931dcc66dbcdc631fe64.png"
+         class="login-reap-image2">
+</div>
+<div id="container-fluid">
+
+    <div class="inner2">
+        <ul id="nav" class="nav nav-tabs">
+            <li class="active"><a href="login">Login</a></li>
+            <li><a href="register">Sign Up</a></li>
+        </ul>
+    </div>
+
+</div>
+<div id="reap_login">
+    <div class="form-content" style="padding: 10px 10px 5px 20px;">
+        <form th:action="@{/reap/login}" method="post" th:object="${loggedInUser}">
+            <div class="login-wrapper">
+                <span th:if="${isActive}== false">
+                        <div class="alert alert-warning" role="alert">
+                            Login Failed!!!Employee Not Active.<br/>
+                            <span style="color: red" th:text="${exception.errorMessage}"></span>
+                        </div>
+                </span>
+                <span th:if="${isValidCredentilas}== false">
+                        <div class="alert alert-warning" role="alert">
+                            Employee Login Failed!!!.<br/>
+                            <span style="color: red" th:text="${exception.errorMessage}"></span>
+                        </div>
+                </span>
+                <div class="form-element">
+                    <p>Username<sup>*</sup></p>
+                    <input type="email" th:field="*{email}" required/>
+                </div>
+
+                <div class="form-element">
+                    <p>Password:<sup>*</sup></p>
+                    <input type="password" th:field="*{password}" required/>
+                </div>
+
+                <hr style="color:grey;">
+
+                <input type="submit" class="btn btn-primary" style="float:right; " value="Login"></input>
+            </div>
+        </form>
+
+
+    </div>
+
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"
+            style="margin-right: 10px; width: 150px; height: 30px; color: blue;  font-size: 15px;
+             background-color: white; border-color: white; border-radius: 0px">Forget Password?
+    </button>
+    <div class="modal fade" id="myModal" role="dialog" >
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Forgot Password</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Enter your Email address and we'll send you a link to reset your password!</p>
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                            <form class="form-horizontal" th:action="@{/reap/forgotpwd}" autocomplete="on" method="post">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="email-pwd">Email:</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" class="form-control" id="email-pwd" name="email-pwd" required>
+                                    </div>
+                                </div>
+
+
+                                <div class="modal-footer">
+                                    <div class="form-group">
+
+                                        <button type="submit" class="btn btn-primary">Send Password</button>
+
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<script type="text/javascript">
+    localStorage.clear();
+</script>
+</body>
+</html>

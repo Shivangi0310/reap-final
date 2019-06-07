@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Badges</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <!--<link rel="stylesheet" type="text/js" href="signup.js"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="../static/css/Badge.css" th:href="@{/css/Badge.css}">
+</head>
+<body>
+<div class="container-fluid">
+    <nav class="navbar-expand-lg navbar-default bg-light col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+         style="position: fixed;">
+        <img src="http://reap.tothenew.com/assets/reap-ed280031215032f3350f114b95893a51.png"
+             class="">
+        <img src="http://reap.tothenew.com/assets/text_footer-8f0e1eb9c8ec931dcc66dbcdc631fe64.png"
+             class="" style="width: 35%; margin-right: 100px">
+        <a href="#">
+            <button class="btn btn-nav" type="button" style="margin-right: 20px; font-size: 17px;">
+                Back to Newers World
+            </button>
+        </a>
+        <a th:href="@{/reap/dashboard}">
+            <button class="btn btn-nav" type="button"  style="margin-right: 20px; font-size: 17px;">
+                <img class="navBarButton" src="http://reap.tothenew.com/assets/ico-dashboard-5dff3444ebd21480dadfeeb0f0598268.png">
+                Dashboard
+            </button>
+        </a>
+        <a th:href="@{/reap/badges}">
+            <button id="btn-nav-active" class="btn btn-nav" type="button" style="font-size: 17px;">
+                <img src="http://reap.tothenew.com/assets/ico-badge-f806ef61da2bf4d67425de6f36f427a9.png">
+                Badges
+            </button>
+        </a>
+        <div class="dropdown">
+            <button type="button" class="dropdown-toggle" data-toggle="dropdown"
+                    style="border: 0;border-radius: 50%;padding: 0">
+                <img th:src="${loggedInUser.getProfilePhoto()}"
+                     class="notification"></button>
+            <div class="dropdown-menu dropdown-menu-right"
+                 style="min-width: 612px;padding-bottom: 0px;margin-top: 12px;">
+
+                <div style="font-size: xx-large">Your Profile</div>
+                <img th:src="${loggedInUser.getProfilePhoto()}"
+                     style="float: left;width: 122px;height: 122px;margin-bottom: 10px">
+                <div style="overflow: auto">
+                    <span class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
+                          style="font-size: large;">Newers Name :</span>
+                    <span th:text="${loggedInUser.getFirstName()}+' '+${loggedInUser.getLastName()}" class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
+                          style="font-size: large;"></span>
+                </div>
+                <div style="overflow: auto">
+                    <span class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" style="font-size: large;">Email-id :</span>
+                    <span th:text="${loggedInUser.getEmail()}" class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" style="font-size: large;"></span>
+                </div>
+                <div style="display: block;clear: left;overflow: hidden;background-color: #f4f4f4;padding: 10px">
+                    <button class="btn btn-secondary"
+                            style="float: left;background-color: #f4f4f4;padding-bottom: 0px;border: 0px;alignment: center">
+                        Users
+                    </button>
+                    <a th:href="@{/reap/logout}">
+                        <button class="btn btn-secondary"
+                                style="float: right;background-color: #f4f4f4;padding-bottom: 0px;border: 0px">Log Out
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" style="margin-top: 5.8%">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title"><img
+                        src="http://reap.tothenew.com/assets/ico-badge-hover-6ad40a50088b6e0747f43352ae621d8c.png">Badges
+                    & Point
+                </div>
+            </div>
+
+            <div style="padding:0px" class="panel-body">
+                <div>
+                    <div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" style="float: left;">
+                        <img th:src="${loggedInUser.getProfilePhoto()}"
+                             class="notification" style="float: left;margin-top: 10%;margin-left: 5%">
+                        <span th:text="${loggedInUser.getFirstName()}+' '+${loggedInUser.getLastName()}" style="font-size: 16px;font-weight: bold;margin-left: 15%;margin-top: 10%;display: inline-block;"></span>
+                        <div style="display: inline-block;margin-left: 15%">
+                            <img src="http://reap.tothenew.com/assets/ico-badge-orange-7487656ca410c0f2051788659278f212.png"
+                                 style="margin-left: 2%">
+                            <img src="http://reap.tothenew.com/assets/ico-badge-grey-6e2741b0311f87111d40aac66392bf22.png"
+                                 style="margin-left: 15%">
+                            <img src="http://reap.tothenew.com/assets/ico-badge-brown-6e5dc638c4ee9eef490cfcb0a5cce103.png"
+                                 style="margin-left: 15%">
+                            <span th:text="${loggedInUser.getNoOfGoldBadgeEarned()}" style="font-size: 16px;margin-left: 5%"></span>
+                            <span th:text="${loggedInUser.getNoOfSilverBadgeEarned()}" style="font-size: 16px;margin-left: 25%"></span>
+                            <span th:text="${loggedInUser.getNoOfBronzeBadgeEarned()}" style="font-size: 16px;margin-left: 25%"></span>
+                        </div>
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" style="float: right;overflow: hidden">
+                        <img src="http://reap.tothenew.com/assets/pointsimg2-a28e7e1e2b45b9c148fe33d3437b12ad.png">
+                        <div class="points" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: medium; font-weight: bold"  th:text="'Points:'+ ${loggedInUser.getPoints()}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a th:href="@{/reap/items}">
+        <button type="button" class="btn btn-primary" style="width:120px;float: right;">Redeem Points</button>
+        </a>
+    </div>
+    <div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" style="margin-top: 5.8%">
+        <div class="panel panel-info" style="border: 0px">
+            <div class="panel-heading" style="overflow: hidden;background-color: #f4f4f4;padding: 0px;">
+                <div class="panel-title" style="overflow: hidden">
+                    <button id="allrecognitions" class=" btn btn-secondary col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">All</button>
+                    <button id="sharedBadges" class=" btn btn-secondary col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">Badges Shared</button>
+                    <button id="receivedBadges" class=" btn btn-secondary col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">Badges Recieved</button>
+                    <button id="pointsRedeemed" class=" btn btn-secondary col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">Point Redeemed</button>
+                </div>
+            </div>
+
+            <div  class="panel-body" style="padding-top:30px;min-height: 300px;overflow-y: scroll;max-height: 300px">
+                <div id="content">
+                    <!--load api data here-->
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../static/js/badge.js" th:src="@{/js/badge.js}"></script>
+
+
+</body>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script th:src="@{/js/badgePopulate.js}"></script>
+</html>
+
+

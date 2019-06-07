@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <title>Registration successful</title>
+    <link rel="stylesheet" type="text/css"  href="../static/css/registrationsuccessful.css" th:href="@{/css/registrationsuccessful.css}"/>
+</head>
+<body>
+<div >
+    <img class="img1" src="http://reap.tothenew.com/assets/reap-ed280031215032f3350f114b95893a51.png">
+    <br>
+    <img class="img1"  src="http://reap.tothenew.com/assets/text_footer-8f0e1eb9c8ec931dcc66dbcdc631fe64.png">
+    <div>
+        <h1>Newer is successfully registered....</h1>
+    </div>
+    <img class="img2" src="../static/imgs/successfulregistration.png" th:src="@{/imgs/successfulregistration.png}">
+
+    <form th:action="@{/reap/login}">
+    <center><button type="submit" class="btn btn-success">Login</button></center>
+    </form>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>DashBoard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker3.css">
+
+    <!--<link rel="stylesheet" type="text/js" href="signup.js"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/css/DashBoard.css" th:href="@{/css/DashBoard.css}">
+    <link rel="stylesheet" th:href="@{/css/easy-autocomplete.css}">
+
+</head>
+
+<body>
+<div class="container-fluid">
+
+    <nav class="navbar-expand-lg navbar-default bg-light col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+         style="position: fixed;">
+        <img src="http://reap.tothenew.com/assets/reap-ed280031215032f3350f114b95893a51.png"
+             class="">
+        <img src="http://reap.tothenew.com/assets/text_footer-8f0e1eb9c8ec931dcc66dbcdc631fe64.png"
+             class="" style="width: 35%; margin-right: 100px">
+        <a href="#">
+            <button class="btn btn-nav" type="button" style="margin-right: 20px; font-size: 17px;">
+                Back to Newers World
+            </button>
+        </a>
+        <a th:href="@{/reap/dashboard}">
+            <button class="btn" type="button" id="btn-nav-active" style="margin-right: 20px; font-size: 17px;">
+                <img class="navBarButton"
+                     src="http://reap.tothenew.com/assets/ico-dashboard-5dff3444ebd21480dadfeeb0f0598268.png">
+                Dashboard
+            </button>
+        </a>
+        <a th:href="@{/reap/badges}">
+            <button class="btn btn-nav" type="button" style="font-size: 17px;">
+                <img src="http://reap.tothenew.com/assets/ico-badge-f806ef61da2bf4d67425de6f36f427a9.png">
+                Badges
+            </button>
+        </a>
+        <div class="dropdown">
+            <button type="button" class="dropdown-toggle" data-toggle="dropdown"
+                    style="border: 0;border-radius: 50%;padding: 0">
+                <img th:src="${loggedInUser.getProfilePhoto()}"
+                     class="notification"></button>
+            <div class="dropdown-menu dropdown-menu-right"
+                 style="min-width: 612px;padding-bottom: 0px;margin-top: 12px;">
+
+                <div style="font-size: xx-large">Your Profile</div>
+                <img th:src="${loggedInUser.getProfilePhoto()}"
+                     style="float: left;width: 122px;height: 122px;margin-bottom: 10px">
+                <div style="overflow: auto">
+                    <span class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
+                          style="font-size: large;">Newers Name :</span>
+                    <span th:text="${loggedInUser.getFirstName()}+' '+${loggedInUser.getLastName()}"
+                          class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
+                          style="font-size: large;"></span>
+                </div>
+                <div style="overflow: auto">
+                    <span class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" style="font-size: large;">Email-id :</span>
+                    <span th:text="${loggedInUser.getEmail()}" class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
+                          style="font-size: large;"></span>
+                </div>
+                <div style="display: block;clear: left;overflow: hidden;background-color: #f4f4f4;padding: 10px">
+                    <button class="btn btn-secondary"
+                            style="float: left;background-color: #f4f4f4;padding-bottom: 0px;border: 0px;alignment: center">
+                        Users
+                    </button>
+                    <a th:href="@{/reap/logout}">
+                        <button class="btn btn-secondary"
+                                style="float: right;background-color: #f4f4f4;padding-bottom: 0px;border: 0px">Log Out
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+        <div class="panel panel-info" style="margin-top: 8%">
+            <div class="panel-heading">
+                <div class="panel-title">RECOGNIZE NEWERS</div>
+            </div>
+
+            <div style="padding-top:30px" class="panel-body">
+
+                <div style="margin-bottom: 25px;">
+                    <span class="input-group" style="width: 50%;display: inline-table">
+                    <!--<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>-->
+                    <input id="search-employee" type="text" name="username" value=""
+                           placeholder="Select a Newer">
+                    </span>
+
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false" id="content">Select A Badges
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="#" id="goldBadge" onclick="setBadge('GOLD')"><img
+                                    src="http://reap.tothenew.com/assets/ico-badge-orange-7487656ca410c0f2051788659278f212.png">Gold(<span
+                                    th:text="${loggedInUser.getGoldBadgeCount()}"></span>)</a>
+                            <a href="#" id="silverBadge" onclick="setBadge('SILVER')"><img
+                                    src="http://reap.tothenew.com/assets/ico-badge-grey-6e2741b0311f87111d40aac66392bf22.png">Silver(<span
+                                    th:text="${loggedInUser.getSilverBadgeCount()}"></span>)</a>
+                            <a href="#" id="bronzeBadge" onclick="setBadge('BRONZE')"><img
+                                    src="http://reap.tothenew.com/assets/ico-badge-brown-6e5dc638c4ee9eef490cfcb0a5cce103.png">Bronze(<span
+                                    th:text="${loggedInUser.getBronzeBadgeCount()}"></span>)</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="comment">Reason:</label>
+                    <textarea class="form-control" rows="5" id="comment"
+                              placeholder="Please select a karma/core value first....."
+                              style="resize: none;"></textarea>
+                </div>
+                <button type="button" class="btn btn-default" id="doRecognize"
+                        style="float: right;background-color: #0e5a80;color: white">
+                    Recognize
+                </button>
+            </div>
+        </div>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title walloffame">
+                    Wall Of Fame
+                    <!--<span class="input-group" style="width: 50%;display: inline-table">-->
+                    <!--<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>-->
+                    <input style="color: #000; display: inline" id="search-remployee" type="text" name="username" value="" placeholder="Select a Newer">
+                    <!--</span>-->
+                    <span th:if="${loggedInUser.isAdmin()}" class="dropdown">
+                    Start Date <input type="date" style="display: inline" class="input-group black" name="from" id="startdate"> : End Date : <input style="display: inline;" class="input-group black" type="date" name="to" id="endDate">
+                     <button id="downloadCsv" type="submit">download</button></span>
+                    <button th:if="${loggedInUser.isAdmin()}" class="btn btn-primary btn-sm" onclick="getWallOfFame()">RESET WALL</button>
+                </div>
+            </div>
+
+            <div class="panel-body" style="padding-top:30px;min-height: 300px;overflow-y: scroll;max-height: 300px">
+
+                <div id="walldata">
+                    <!--<div class='row' style='border-bottom: solid 1px #b7b7b7;padding: 5px'><div class='col-md-1'><img class='profileimg' src='${v.recognizeePic}'></div><div class='col-md-10'><span><strong>${v.recognizeeName}</strong></span> has received <span><img src=/imgs/${v.badge}.png></img> </span>badge from <span><strong>${v.recognizorName}</strong></span><p style='margin-bottom: 5px'><b>Reason: </b>${v.message}</p><p style='color: #a8a8a8;'>${v.date}</p></div><div class="col-1"><i id="${v.revokeId}" style="cursor: pointer;" class="fa fa-trash fa-lg"></i> </div> </div>-->
+                    <!--load api data here-->
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" style="z-index: 2;position:fixed;margin-left: 75%">
+        <div class="panel panel-info" id="leftPersonInfo">
+            <div class="panel-heading">
+                <div class="panel-title">MY BADGES</div>
+            </div>
+
+            <div class="panel-body">
+                <div>
+                    <div>
+                        <img th:src="${loggedInUser.getProfilePhoto()}"
+                             class="notification" style="float: left;">
+                        <span th:text="${loggedInUser.getFirstName()}+' '+${loggedInUser.getLastName()}"
+                              style="font-size: 16px;font-weight: bold;margin-left: 15%"></span>
+                        <div style="">
+                            <img src="http://reap.tothenew.com/assets/ico-badge-orange-7487656ca410c0f2051788659278f212.png"
+                                 style="margin-left: 2%">
+                            <img src="http://reap.tothenew.com/assets/ico-badge-grey-6e2741b0311f87111d40aac66392bf22.png"
+                                 style="margin-left: 15%">
+                            <img src="http://reap.tothenew.com/assets/ico-badge-brown-6e5dc638c4ee9eef490cfcb0a5cce103.png"
+                                 style="margin-left: 15%">
+                        </div>
+                        <div>
+                            <span th:text="${loggedInUser.getNoOfGoldBadgeEarned()}"
+                                  style="font-size: 16px;margin-left: 3%"></span>
+                            <span th:text="${loggedInUser.getNoOfSilverBadgeEarned()}"
+                                  style="font-size: 16px;margin-left: 20%"></span>
+                            <span th:text="${loggedInUser.getNoOfBronzeBadgeEarned()}"
+                                  style="font-size: 16px;margin-left: 20%"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content" style="width: 400px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Revoke Recognition</h4>
+            </div>
+            <div class="modal-body" style="height: 250px; background-color: #cccccc;">
+                    <input type="radio" name="revoke" value="Selected incorrect name"/>Selected incorrect name<br>
+                    <hr style="background-color: white">
+                    <input type="radio" name="revoke" value="Selected incorrect badge"/>Selected incorrect badge<br>
+                    <hr style="background-color: white">
+                    <input type="radio" name="revoke" value="Inappropriate language used"/>Inappropriate language used<br>
+                    <hr style="background-color: white">
+                    <input type="radio" name="revoke" value="other">
+                    <input id="other_reason" type="text" name="revoke" style="width: 300px" placeholder="Others, please specify"/><br>
+                    <hr style="background-color: white">
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="doRevoke()" class="btn btn-danger">Revoke</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<span th:if="${loggedInUser.isAdmin() == true}">
+    <script>
+        localStorage.setItem("admin",true);
+    </script>
+</span>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script th:src="@{/js/jquery.easy-autocomplete.js}"></script>
+<script type="text/javascript" src="../static/js/Dashboard.js" th:src="@{/js/Dashboard.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+
+</body>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
+<script th:src="@{/js/scripts.js}"></script>
+<script>
+   $(document).ready(function () {
+
+       $('#downloadCsv').click(function () {
+
+           var startDate = $('#startdate').val();
+           var endDate = $('#endDate').val();
+           console.log(startDate);
+           console.log(endDate);
+           $.ajax({
+               url: "/reap/dashboard/downloadcsv.csv",
+               type: "get",
+               contentType: 'text/csv',
+               data: {"startDate": startDate, "endDate": endDate},
+
+               success: function () {
+               }
+           })
+           console.log("bfhjdgh"+startDate)
+           console.log(endDate)
+           window.location.href = '/reap/dashboard/downloadcsv.csv?startDate=' + startDate + '&endDate=' + endDate;
+
+       });
+        // $("#downloadCsv").on("click", function () {
+
+        // });
+
+    });
+</script>
+
+
+</html>

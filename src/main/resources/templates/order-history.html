@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>order-history</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker3.css">
+
+    <!--<link rel="stylesheet" type="text/js" href="signup.js"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/css/DashBoard.css" th:href="@{/css/DashBoard.css}">
+    <link rel="stylesheet" th:href="@{/css/easy-autocomplete.css}">
+
+</head>
+<body>
+<div class="container-fluid">
+    <nav class="navbar-expand-lg navbar-default bg-light col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+         style="position: fixed;">
+        <img src="http://reap.tothenew.com/assets/reap-ed280031215032f3350f114b95893a51.png"
+             class="">
+        <img src="http://reap.tothenew.com/assets/text_footer-8f0e1eb9c8ec931dcc66dbcdc631fe64.png"
+             class="" style="width: 35%; margin-right: 100px">
+        <a href="#">
+            <button class="btn btn-nav" type="button" style="margin-right: 20px; font-size: 17px;">
+                Back to Newers World
+            </button>
+        </a>
+        <a th:href="@{/reap/dashboard}">
+            <button class="btn" type="button" id="btn-nav-active" style="margin-right: 20px; font-size: 17px;">
+                <img class="navBarButton"
+                     src="http://reap.tothenew.com/assets/ico-dashboard-5dff3444ebd21480dadfeeb0f0598268.png">
+                Dashboard
+            </button>
+        </a>
+        <a th:href="@{/reap/badges}">
+            <button class="btn btn-nav" type="button" style="font-size: 17px;">
+                <img src="http://reap.tothenew.com/assets/ico-badge-f806ef61da2bf4d67425de6f36f427a9.png">
+                Badges
+            </button>
+        </a>
+        <div class="dropdown">
+            <button type="button" class="dropdown-toggle" data-toggle="dropdown"
+                    style="border: 0;border-radius: 50%;padding: 0">
+                <img th:src="${loggedInUser.getProfilePhoto()}"
+                     class="notification"></button>
+            <div class="dropdown-menu dropdown-menu-right"
+                 style="min-width: 612px;padding-bottom: 0px;margin-top: 12px;">
+
+                <div style="font-size: xx-large">Your Profile</div>
+                <img th:src="${loggedInUser.getProfilePhoto()}"
+                     style="float: left;width: 122px;height: 122px;margin-bottom: 10px">
+                <div style="overflow: auto">
+                    <span class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
+                          style="font-size: large;">Newers Name :</span>
+                    <span th:text="${loggedInUser.getFirstName()}+' '+${loggedInUser.getLastName()}"
+                          class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
+                          style="font-size: large;"></span>
+                </div>
+                <div style="overflow: auto">
+                    <span class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" style="font-size: large;">Email-id :</span>
+                    <span th:text="${loggedInUser.getEmail()}" class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
+                          style="font-size: large;"></span>
+                </div>
+                <div style="display: block;clear: left;overflow: hidden;background-color: #f4f4f4;padding: 10px">
+                    <button class="btn btn-secondary"
+                            style="float: left;background-color: #f4f4f4;padding-bottom: 0px;border: 0px;alignment: center">
+                        Users
+                    </button>
+                    <a th:href="@{/reap/logout}">
+                        <button class="btn btn-secondary"
+                                style="float: right;background-color: #f4f4f4;padding-bottom: 0px;border: 0px">Log Out
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <h1 class="display-4">My Orders</h1>
+    <th:block th:each="orderSummary: ${orderSummaryList}">
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-shopping-cart"></i>
+                <span th:text="'Order #' + ${orderSummary.getId()}"></span>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled" th:each="itemQuantityEntry: ${orderSummary.getItemQuantity()}">
+                    <li class="media">
+                        <i class="mr-2 fas fa-tags"></i>
+                        <div class="media-body">
+                            <h5 class="mt-0 mb-1" th:text="'Item ID: ' + ${itemQuantityEntry.key}"></h5>
+                            <span th:text="'Item quantity: '+ ${itemQuantityEntry.value}"></span>
+                        </div>
+                    </li>
+                </ul>
+                <h4 th:text="'Total points redeemed: ' + ${orderSummary.getTotalPointsRedeemed()}"></h4>
+            </div>
+        </div>
+    </th:block>
+
+    <div class="table-responsive">
+        <table class="text-center table table-light table-bordered">
+            <thead>
+            <tr class="card-header">
+                <th scope="col">Item ID</th>
+                <th scope="col">Photo</th>
+                <th scope="col">Name</th>
+                <th scope="col">Points worth</th>
+            </tr>
+            </thead>
+            <tbody th:each="item: ${itemSetInOrderSummaryList}">
+            <tr class="itemRow">
+                <th scope="row" th:text="${item.id}"></th>
+                <td><img class="img-fluid user-photo" th:src="${item.imageURL}" style="width: 30px; height: 30px;"/></td>
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.price}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

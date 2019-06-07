@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>404</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="../static/css/404Error.css"
+          th:href="@{/css/404Error.css}">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <img class="imageDimension"
+             src="../static/imgs/Error404.png"
+             th:src="@{/imgs/Error404.png}">
+        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 centerText">
+            <div style="overflow: hidden;">
+                <span class="awwwText">OOOPS!!!!!!</span>
+                <br>
+                <span class="errorText">404 Error!</span>
+                <br>
+                <span class="errorText">Page Not Found!</span>
+                <br>
+                <button class="btn btn-outline-info">
+                    <a class="homePage" href="/reap/dashboard">
+                        Home Page
+                    </a>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

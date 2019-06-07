@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Badges</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <!-- jQuery library -->
+
+
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+
+
+    <!-- Latest compiled JavaScript -->
+
+
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>-->
+    <!--<link rel="stylesheet" type="text/js" href="signup.js"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/css/Badge.css" th:href="@{/css/Badge.css}">
+    <!--<link rel="stylesheet" href="../static/css/Item.css" th:href="@{/css/Item.css}">-->
+
+    <style>
+        #tbl1, .tds {
+            border: 1px solid black;
+        }
+    </style>
+
+</head>
+<body>
+<div class="container-fluid">
+    <nav class="navbar-expand-lg navbar-default bg-light col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+         style="position: fixed;">
+        <img src="http://reap.tothenew.com/assets/reap-ed280031215032f3350f114b95893a51.png"
+             class="">
+        <img src="http://reap.tothenew.com/assets/text_footer-8f0e1eb9c8ec931dcc66dbcdc631fe64.png"
+             class="" style="width: 35%; margin-right: 100px">
+        <a href="#">
+            <button class="btn btn-nav" type="button" style="margin-right: 20px; font-size: 17px;">
+                Back to Newers World
+            </button>
+        </a>
+        <a th:href="@{/reap/dashboard}">
+            <button class="btn" type="button" id="btn-nav-active" style="margin-right: 20px; font-size: 17px;">
+                <img class="navBarButton"
+                     src="http://reap.tothenew.com/assets/ico-dashboard-5dff3444ebd21480dadfeeb0f0598268.png">
+                Dashboard
+            </button>
+        </a>
+        <a th:href="@{/reap/badges}">
+            <button class="btn btn-nav" type="button" style="font-size: 17px;">
+                <img src="http://reap.tothenew.com/assets/ico-badge-f806ef61da2bf4d67425de6f36f427a9.png">
+                Badges
+            </button>
+        </a>
+
+        <a class="nav-link" th:href="@{'/reap/cart/'+${loggedInUser.getId()}}">
+            <i class="fa fa-shopping-cart"></i></a>
+
+
+        <div class="dropdown">
+            <button type="button" class="dropdown-toggle" data-toggle="dropdown"
+                    style="border: 0;border-radius: 50%;padding: 0">
+                <img th:src="${loggedInUser.getProfilePhoto()}"
+                     class="notification"></button>
+            <div class="dropdown-menu dropdown-menu-right"
+                 style="min-width: 612px;padding-bottom: 0px;margin-top: 12px;">
+
+                <div style="font-size: xx-large">Your Profile</div>
+                <img th:src="${loggedInUser.getProfilePhoto()}"
+                     style="float: left;width: 122px;height: 122px;margin-bottom: 10px">
+                <div style="overflow: auto">
+                    <span class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
+                          style="font-size: large;">Newers Name :</span>
+                    <span th:text="${loggedInUser.getFirstName()}+' '+${loggedInUser.getLastName()}"
+                          class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
+                          style="font-size: large;"></span>
+                </div>
+                <div style="overflow: auto">
+                    <span class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" style="font-size: large;">Email-id :</span>
+                    <span th:text="${loggedInUser.getEmail()}" class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
+                          style="font-size: large;"></span>
+                </div>
+                <div style="display: block;clear: left;overflow: hidden;background-color: #f4f4f4;padding: 10px">
+                    <button class="btn btn-secondary"
+                            style="float: left;background-color: #f4f4f4;padding-bottom: 0px;border: 0px;alignment: center">
+                        Users
+                    </button>
+                    <a th:href="@{/reap/logout}">
+                        <button class="btn btn-secondary"
+                                style="float: right;background-color: #f4f4f4;padding-bottom: 0px;border: 0px">Log Out
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container" id="main">
+        <h1 class="display-4">Redeemable items</h1>
+        <!-- Alerts -->
+        <div class="alert alert-success" role="alert" id="successCartAlert" style="display: none;">
+        </div>
+
+        <div class="alert alert-danger" role="alert" id="errorCartAlert" style="display: none;">
+        </div>
+        <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive">
+            <table class="text-center table table-light table-bordered">
+                <thead>
+                <tr class="card-header">
+                    <th style="display: none;" scope="col">ID</th>
+                    <th style="display: none;" scope="col">UserId</th>
+                    <th scope="col">Photo</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Points worth</th>
+                    <!-- <th scope="col">Quantity available</th> -->
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody th:each="item: ${itemList}">
+                <tr class="itemRow">
+                    <th style="display: none" scope="row"><input name="itemId" type="text" th:value="${item.id}"></th>
+                    <th style="display: none" scope="row"><input name="userId" type="text" th:value="${loggedInUser.id}"></th>
+                    <td><img class="img-fluid user-photo" th:src="${item.imageURL}"style="width: 30px; height: 30px;"/></td>
+                    <td th:text="${item.name}"></td>
+                    <td th:text="${item.price}"></td>
+                    <!-- <td th:text="${item.quantity}"></td> -->
+                    <td>
+                        <button type="button" class="addItemToCartButton btn btn-success"
+                                th:disabled="${item.quantity lt 1}">
+                            <i style="color: white" class="fa fa-cart-plus"></i>
+                        </button>
+                        <!--<button type="button" class="addItemToCartButton btn btn-success" th:id="${item.id}"
+                                th:disabled="${item.quantity lt 1}">
+                            <i style="color: white" class="fa fa-cart-plus"></i>
+                        </button>-->
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
+
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+<!--<script type="text/javascript" src="../static/js/badge.js" th:src="@{/js/badge.js}"></script>-->
+<script type="text/javascript" src="../static/js/item.js" th:src="@{/js/item.js}"></script>
+<!--<script type="text/javascript" src="../static/js/item.js" th:src="@{/js/item.js}" async></script>-->
+
+
+</body>
+<!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
+
+</html>
